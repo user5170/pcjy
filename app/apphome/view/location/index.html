@@ -1,0 +1,70 @@
+{include file="common/head"}
+<link rel="stylesheet" href="__STATIC__/apphome/css/style.css">
+    <div class="header">
+        <div class="top">
+            <div class="left" onclick=" api.closeWin(); ">
+                <i class="icon iconfont icon-fanhui"></i>
+            </div>
+            <span>城市选择</span>
+        </div>
+    </div>
+    <div id="showLetter" class="showLetter" style="display: none;"><span>D</span></div>
+    <div class="letter">
+        <ul>
+            {volist name="info" id="vo"}
+            <li><a href="javascript:;">{$key}</a></li>
+            {/volist}
+
+        </ul>
+    </div>
+    <div class="container">
+        <div class="city">
+            {volist name="info" id="vo"}
+            <div class="city-list"><span class="city-letter" id="{$key}1">{$key}</span>
+                {volist name="vo" id="ins"}
+                    <p data-id="{$ins.id}">{$ins.area_name}</p>
+                {/volist}
+            </div>
+            {/volist}
+        </div>
+    </div>
+
+<!-- {include file="common/foot"} -->
+<script src="__STATIC__/apphome/js/jquery.min.js"></script>
+<script>
+    $(function () {
+        //加载城市事件
+        $('.container').show();
+        //选择城市 start
+        $('body').on('click', '.city-list p', function () {
+            var _id = $(this).data('id');
+            $.ajax({
+                url: "{:url('/apphome/location/binding')}",
+                data: 'city=' + _id ,
+                dataType: 'json',
+                success: function (res) {
+                    if(res.code == '1'){
+                        //layer.open({content: res.msg ,skin: 'msg',time: 2});
+                        setTimeout(function () {
+                            api.closeWin(); 
+                        },1000);
+                    }
+                },
+                error: function () {
+                    layer.open({content: '网络错误',skin: 'msg',time: 2});
+                }
+            })
+        });
+        //点击索引查询城市
+        $('body').on('click', '.letter a', function () {
+            var s = $(this).html();
+            $(window).scrollTop($('#' + s + '1').offset().top);
+            $("#showLetter span").html(s);
+            $("#showLetter").show().delay(500).hide(0);
+        });
+        //中间的标记显示
+        $('body').on('onMouse', '.showLetter span', function () {
+            $("#showLetter").show().delay(500).hide(0);
+        });
+    })
+</script>

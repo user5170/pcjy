@@ -1,0 +1,83 @@
+{include file="common/head"}
+<style>
+    /*.loadPage{*/
+        /*background: url("__STATIC__/apphome/images/download.png") no-repeat center;*/
+    /*}*/
+    /*img{*/
+        /*width:  60%;*/
+        /*height: auto;*/
+    /*}*/
+</style>
+<body>
+
+    <!--<div class="loadPage">-->
+        <!--<img src="" alt="二维码下载">-->
+        <!--<p><a href="">直接下载</a></p>-->
+    <!--</div>-->
+    <div class="qrcodeContent">
+        <div class="qrcodeCanvas" style="width: 100%;margin: 0 auto;height: 500px;">
+            <img class="imgBox" src="__STATIC__/apphome/images/download.png" style="display: none;width: 100%;height: 100%;"/>
+            <img class="imgCode" src="__STATIC__/apphome/images/code.png" style="display: none;width: 6rem;height: 6rem;"/>
+            <div id="qrcodeCanvas"></div>
+        </div>
+        <div class="share" style="position: absolute;left: 50%;width: 250px;margin-left: -125px;text-align: center;color: #666;">
+            <p style="color: #333;font-size: .8rem">长按图片保存分享</p>
+            <p>或</p>
+            <p style="margin-top: 8px;"> <a href="" style="background-color: #0cb46a;color: #fff;width: 100px;padding: 6px 65px;border: 1px solid #0cb46a;border-radius: 3px;font-size: .8rem;font-family: 'Microsoft YaHei', SimHei">直接下载</a> </p>
+        </div>
+    </div>
+
+{include file="common/foot"}
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(function() {
+            var wHeight = $(window).height();
+            $('.qrcodeCanvas').height(wHeight);
+            var shallBottom = parseInt(wHeight*0.1);
+            $('.share').css('bottom',shallBottom);
+            //生成画布
+            hecheng();
+            function hecheng(){
+                draw(function(){
+                    document.getElementById('qrcodeCanvas').innerHTML='<img src="'+base64[0]+'">';
+                })
+            }
+            var base64=[];
+            function draw(fn) {
+                var imgArr = ['__STATIC__/apphome/images/download.png','__STATIC__/apphome/images/code.png'];
+                var c = document.createElement('canvas'),
+                    ctx = c.getContext('2d'),
+                    len = imgArr.length;
+                c.width = $(".qrcodeCanvas").width();
+                c.height = $(".qrcodeCanvas").height();
+//                console.log(c.width,c.height);
+                ctx.rect(0,0,c.width,c.height);
+                ctx.fillStyle='#ccc';
+                ctx.fill();
+                function drawing(n) {
+                    if (n<len) {
+                        var img = new Image;
+                        img.src = imgArr[n];
+                        img.onload = function() {
+                            if (n==1) {
+                                var codeW = $(".imgCode").width(), codeH = $(".imgCode").height();
+                                var imgX = parseInt($(window).width()/2) - parseInt(codeW/2);
+                                var imgY = parseInt(wHeight*0.55) ;
+                                ctx.drawImage(img,imgX,imgY,codeW,codeH);
+                                drawing(n+1);
+                            } else {
+                                ctx.drawImage(img,0,0,c.width,c.height);
+                                drawing(n+1);
+                            }
+                        }
+                    } else {
+                        base64.push(c.toDataURL("image/jpeg",0.8));
+                        fn();
+                    }
+                }
+                drawing(0);
+            }
+        })
+    </script>
+</body>
+</html>

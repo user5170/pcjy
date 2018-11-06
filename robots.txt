@@ -1,0 +1,6 @@
+#
+# robots.txt for WeCenter
+#
+
+User-agent: *
+Disallow: /

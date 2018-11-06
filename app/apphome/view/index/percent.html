@@ -1,0 +1,308 @@
+
+<link rel="stylesheet" href="__STATIC__/apphome/css/idangerous.swiper.css">
+<link rel="stylesheet" href="__STATIC__/apphome/css/idangerous.swiper.3dflow.css">
+<style>
+    .invest{
+        padding: 15px;
+        background: #fff;
+    }
+    .invest>.title{
+        font-size: .7rem;
+        color: #0cb46a;
+        padding: 0 15px;
+        /*margin-bottom: 20px;*/
+        text-align: center;
+    }
+    .invest>.title>.line{
+        display: inline-block;
+        height: 1px ;
+        width: 2rem;
+        margin: 0 10px;
+        padding-bottom: 5px;
+        border-top: 1px solid #0cb46a;
+    }
+    .invest>.account{
+        display: flex;
+        -webkit-display: flex;
+        justify-content: space-around;
+        align-items: center;
+        /*padding: 30px 0;*/
+        /*padding-bottom: 0;*/
+        text-align: center;
+    }
+    .invest>.account>.item{
+        display: inline-block;
+        font-size: .7rem;
+        color: #666;
+    }
+    .invest>.account>em{
+        display: inline-block;
+        height: 1rem;
+        /*margin: 0 15px;*/
+        border-left: 2px solid #E8E8E8;
+    }
+    .invest>.account>.item>.leave{
+        color: #0cb46a;
+    }
+    /*.invest>.confirm{*/
+    /*width: 80%;*/
+    /*height: 2.2rem;*/
+    /*line-height: 2.2rem;*/
+    /*color: #fff;*/
+    /*text-align: center;*/
+    /*border-radius: 15px;*/
+    /*background: #0cb46a;*/
+    /*}*/
+
+    .percentBox{
+        perspective: 1300px;
+        transition:all  1s;
+        padding: 0 15px;
+    }
+    .percent-wrapper{
+        height: 180px;
+        position:relative;
+        transform-style:preserve-3d;
+        transform:rotatex(-0deg) rotatey(0deg);
+    }
+    .percent-slide{
+        width: 105px;
+        height: 100%;
+        position:absolute;
+        top: 50%;
+        z-index: 10;
+        margin-top: -100px;
+        background: transparent;
+        backface-visibility: hidden;
+        display: none;
+    }
+    .percent-slide:nth-child(1){
+        transform:rotatey(0deg) translatez(400px);
+        left:50%;
+        z-index: 15;
+        margin-left: -52.5px;
+        display: block;
+    }
+    .percent-slide:nth-child(2){
+        transform:rotatey(0deg) translatez(100px);
+        right:0;
+        display: block;
+    }
+    .percent-slide:nth-child(3){
+        transform:rotatey(0deg) translatez(100px);
+        left: 0;
+        display: block;
+    }
+    @keyframes bounce {
+        from{
+            transform: translatez(100px);
+        }
+        25%{
+            transform: translatez(200px);
+        }
+        50%{
+            transform: translatez(300px);
+        }
+        to{
+            transform: translatez(400px);
+        }
+    }
+    .percent-slide:nth-child(1).bounce{
+        animation: bounce .5s linear;
+        -webkit-animation: bounce .5s linear;
+    }
+    .jqm-round-wrap{
+        display:block;
+        position:absolute;
+        width:100px;
+        height:100px;
+        margin-top: 50px;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        overflow:hidden;
+        left: 50%;
+        margin-left: -50px;
+    }
+    .jqm-round-sector{
+        position:absolute;
+        width: 100px;
+        height: 100px;
+    }
+    .jqm-round-circle{
+        position:absolute;
+        left:2.5px;
+        top:2.5px;
+        z-index:10;
+        width:95px;
+        height:95px;
+        padding: 0.25rem 0;
+        border-radius:50%;
+        -webkit-border-radius: 50%;
+        background-color:#FFF;
+        text-align: center;
+    }
+    .jqm-round-circle p.title{
+        font-size: .6rem;
+        color: #B4B4B4;
+        width: 50px;
+        margin: 0 auto;
+    }
+    .jqm-round-circle p.bianhao{
+        font-size: .5rem;
+        color: #BABABA;
+        line-height: 14px;
+    }
+    .jqm-round-circle p:last-child{
+        font-size: .5rem;
+
+        line-height: 14px;
+    }
+    .jqm-round-circle p.percNum{
+        width:100%;
+        line-height: 1.7rem;
+        margin:0;
+        text-align:center;
+        font-size: 1rem;
+        font-weight:bold;
+        color: #0cb46a;
+    }
+    #wareHouseTitle{
+        font-size: .8rem;
+        text-align: center;
+        color: #333;
+        font-weight: 600;
+        height: 40px;
+        line-height: 25px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .squareLeaf>span{
+        color: #0cb46a;
+    }
+</style>
+<div class="invest">
+    <h3 class="title"><span class="line"></span>专业稳健 值得信赖 <span class="line"></span></h3>
+    <div class="percentBox">
+        <ul class="percent-wrapper">
+            {volist name="claim" id="vo"}
+            <li class="percent-slide" data-id="{$vo.id}">
+                <div class="jqm-round-wrap">
+                    <canvas id="jqm-round-sector{$key}" class="jqm-round-sector" height="200" width="200"></canvas>
+                    <div class="jqm-round-circle">
+                        <p class="title" style="display: none;">{$vo.name}</p>
+                        <!-- <p class="bianhao"></p> -->
+                        <p>出租率</p>
+                        <p class="percNum" data-num="{$vo.acr_bili}">{$vo.acr_bili * 100}%</p>
+                        <p class="squareLeaf">剩余面积 <br> <span>{$vo.acr_lease}㎡</span></p>
+                    </div>
+                </div>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    <p id="wareHouseTitle"></p>
+    <div class="account">
+        <div class="item area">
+            {$claim[0]['city']}-{$claim[0]['district']}
+        </div>
+        <em></em>
+        <div class="item zujin">
+            <span style="color: #0cb46a;">{$claim[0]['price']}</span>元/㎡/天 起
+        </div>
+        <em></em>
+        <div class="item type">
+            {$claim[0]['type']}
+        </div>
+    </div>
+    <!--<div class="confirm">立即投资</div>-->
+</div>
+
+<script src="__STATIC__/apphome/js/zepto.min.js"></script>
+<script>
+    function houseTitle() {
+        var _houseTitle = $('.jqm-round-circle>.title').html();
+        $('#wareHouseTitle').html(_houseTitle);
+    }
+    houseTitle();
+
+    $('.percent-slide').click(function () {
+        var _index1 = $(this).index();
+        var arr = $('.percent-slide').toArray();
+        var _splice = arr.splice(0, _index1);
+        arr = arr.concat(_splice);
+        $(this).addClass('bounce').siblings('.bounce').removeClass('bounce');
+        $('.percent-wrapper').html(arr);
+        houseTitle();
+
+        var _id = $(this).data('id');
+        $.ajax({
+            url: '{:url("ajaxclaim")}',
+            type: 'post',
+            data: 'ids=' + _id,
+            dataType: 'json',
+            success: function(res){
+                $('.account>.area').html(res.city+'-'+res.district);
+                $('.account>.zujin').html('<span style="color: #0cb46a;">'+ res.price +'</span> 元/㎡/天 起');
+                $('.account>.type').html(res.type);
+            },
+            error: function(){
+                layer.open({content: '网络错误', skin: 'msg' , time: 2});
+            }
+        })
+
+    });
+    // canvas percent
+    function canvasPerc() {
+        var pie = {
+            run:function(opts){
+                if(!opts.id) throw new Error("must be canvas id.");
+                var canvas = document.getElementById(opts.id), ctx;
+                if(canvas && (ctx = canvas.getContext("2d"))){
+                    canvas.width = canvas.height = "200";
+                    var noop = function(){};
+                    var before = opts.onBefore || noop;
+                    var after = opts.onAfter || noop;
+                    before(ctx);
+                    ctx.fillStyle = opts.color || '#0cb46a';
+                    var step = opts.step || 1;
+                    var delay = opts.delay || 10;
+                    var i = 0, rage = 360 * (opts.percent || 0);
+                    var sRage = -Math.PI * 0.5;
+                    var djs = function(){
+                        i = i + step;
+                        if(i <= rage){
+                            ctx.beginPath();
+                            ctx.moveTo(100, 100);
+                            ctx.arc(100, 100, 100, sRage, Math.PI * 2 * (i/360)+sRage);
+                            ctx.fill();
+                            setTimeout(djs, delay);
+                        } else {
+                            after(ctx);
+                        }
+                    };
+                    djs();
+                }
+            }
+        };
+
+        var p=0;
+        var len=$(".jqm-round-wrap").length;
+        for(p=0;p<len;p++){
+            var k=$("#jqm-round-sector"+p).next(".jqm-round-circle").find(".percNum").data('num');
+            pie.run({
+                id:"jqm-round-sector"+p,
+                percent: k,
+                onBefore:function(ctx){
+                    ctx.fillStyle = '#e8e8e8';
+                    ctx.beginPath();
+                    ctx.moveTo(100, 100);
+                    ctx.arc(100, 100, 100, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+        }
+    }
+    canvasPerc();
+
+</script>

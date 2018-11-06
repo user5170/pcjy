@@ -1,0 +1,5 @@
+/runtime/cache/*
+/runtime/data/*
+/runtime/log/*
+/runtime/temp/*
+/public/uploads/*

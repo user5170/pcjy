@@ -1,0 +1,232 @@
+{include file="common/head"}
+<body>
+<style type="text/css">
+    .header.fixed + section{
+        margin-top: 56px;
+    }
+    .headBox{
+        position: absolute;
+        left: 50%;
+        top: 17%;
+        margin-left: -50px;
+        text-align: center;
+        color: #333;
+    }
+    .a_head{
+        display: inline-block;
+        width: 100%;
+        height: 9.75rem;
+        background: url('__STATIC__/head.png') no-repeat center;
+        background-size: contain;
+        -webkit-filter: blur(10px);
+        filter: blur(10px);
+    }
+    .heads{
+        border-radius: 50%;
+        border: 1px #fff solid;
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        line-height: 100px;
+        background: #fff;
+
+    }
+    .icon{
+        font-size: 20px;
+        color: #333;
+    }
+    .icon-xiangyou2{
+        font-size: 14px;
+        color: #ddd;
+    }
+    .aui-list .aui-list-item-title{
+        color: #333;
+        font-size: .7rem;
+    }
+    .tixian:after{
+        display: none !important;
+    }
+</style>
+    <div class="header" style="padding-left:0">
+          <div class="top">
+              <!--<div class="left">-->
+              <!--    <a href="{:url('/index')}">-->
+              <!--        <i class="icon iconfont icon-shouye" ></i>-->
+              <!--    </a>-->
+              <!--</div>-->
+              <span>会员中心</span>
+              <div class="right">
+                  <a onclick="openweb('main1','{:url("/setting")}')" >
+                    <i class="icon iconfont icon-shezhi"></i>
+                  </a>
+              </div>
+          </div>
+    </div>
+    <section class="aui-content user-info aui-text-center aui-margin-b-15" style="background: #fff;padding: 15px;">
+        <a onclick="openweb('main1','{:url("user/personCenter")}')" class="a_head">
+        </a>
+    </section>
+    <div class="headBox">
+        <div class="heads">
+            <img src="__STATIC__/head.png" style="width: 85%;display: inline;vertical-align: middle;">
+        </div>
+        <h2 class="aui-margin-t-15">{$userinfo.username} </h2>
+    </div>
+    <section class="aui-content aui-grid aui-margin-b-15">
+        <div class="aui-row">
+            <div class="aui-col-xs-4 aui-border-r">
+                <big class="aui-text-warning">{:number_format($userinfo['count_money'],2)}<small> </small></big>
+                <div class="aui-gird-lable aui-font-size-12">总收入</div>
+            </div>
+            <div class="aui-col-xs-4 aui-border-r">
+                <big class="aui-text-danger">{:number_format($userinfo['money'],2)}<small> </small></big>
+                <div class="aui-gird-lable aui-font-size-12">可提现</div>
+            </div>
+            <div class="aui-col-xs-4">
+                <big class="aui-text-success">{:number_format($userinfo['day_money'],2)}<small>   </small></big>
+                <div class="aui-gird-lable aui-font-size-12">今日收入</div>
+            </div>
+        </div>
+    </section>
+    <section class="aui-content">
+        <ul class="aui-list aui-list-in aui-margin-b-15">
+            <a onclick="openweb('main1','{:url("index/sss",array("my"=>1))}')">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-label-icon">
+                        <i class="icon iconfont icon-liebiao"></i>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-title">已认领的仓库</div>
+                    </div>
+                </li>
+            </a>
+            <a href="{:url('index/sss')}">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-label-icon">
+                        <i class="icon iconfont icon-liebiao"></i>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-title">已租出的仓库</div>
+                    </div>
+                </li>
+            </a>
+            <a onclick="openweb('loading2','{:url("/put")}')">
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="icon iconfont icon-tijiaoziliao"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">提交仓库信息</div>
+                </div>
+            </li>
+            </a>
+            <a onclick="openweb('loading2','{:url("/publish")}')">
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="icon iconfont icon-tijiaoziliao"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">提交租凭信息</div>
+                </div>
+            </li>
+            </a>
+            <!-- <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="icon iconfont icon-jilu"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">带看记录</div>
+                </div>
+            </li> -->
+        </ul>
+        <ul class="aui-list aui-list-in">
+            
+            <li class="aui-list-item aui-collapse-header" tapmode>
+                <div class="aui-list-item-label-icon">
+                    <i class="icon iconfont icon-tixian1"></i>
+                </div>
+                <div class="aui-list-item-inner tixian">
+                    <div class="aui-list-item-title">提现操作</div>
+                    <div class="aui-list-item-right">
+                        <i class="icon iconfont icon-down"></i>
+                    </div>
+                </div>
+            </li>
+            <div class="aui-collapse-content">
+                <a onclick="openweb('loading2','{:url("/withdraw")}')">
+                    <li class="aui-list-item" style="background: #f7f7f7;">
+                        <div class="aui-list-item-label-icon">
+                            <i class="icon iconfont icon-xiangyou2"></i>
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title" style="color: #666;">去提现</div>
+                        </div>
+                    </li>
+                </a>
+                <a onclick="openweb('loading2','{:url("/record",array("type"=>"withdraw"))}')">
+                    <li class="aui-list-item"  style="background: #f7f7f7;">
+                        <div class="aui-list-item-label-icon">
+                            <i class="icon iconfont icon-xiangyou2"></i>
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title" style="color: #666;">提现记录</div>
+                        </div>
+                    </li>
+                </a>
+            </div>
+            <a onclick="openweb('loading2','{:url("/record")}')">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-label-icon">
+                        <i class="icon iconfont icon-caiwuchazhang"></i>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-title">财务记录</div>
+                        <div class="aui-list-item-right"></div>
+                    </div>
+                </li>
+            </a>
+            <a onclick="openweb('loading2','{:url("System/index")}')">
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="icon iconfont icon-xiaoxi"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">系统消息</div>
+                    <div class="aui-list-item-right">({$userinfo.system}条未读)</div>
+                </div>
+            </li>
+            </a>
+            <a onclick="openweb('loading2','{:url("user/approve")}')">
+            <li class="aui-list-item">
+                <div class="aui-list-item-label-icon">
+                    <i class="icon iconfont icon-renzheng"></i>
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">实名认证</div>
+                    {if condition="$userinfo.approve eq 0"}
+                        <div class="aui-list-item-right">(未认证)</div>
+                    {elseif condition="$userinfo.approve eq 1" /}
+                        <div class="aui-list-item-right">(待审核)</div>
+                    {/else}
+                        <div class="aui-list-item-right">(已认证)</div>
+                    {/if}
+                </div>
+            </li>
+            </a>
+            <li class="aui-list-item">
+            </li>
+        </ul>
+    </section>
+
+<script src="__STATIC__/appuser/js/aui-collapse.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+        api.parseTapmode();
+    }
+    var collapse = new auiCollapse({
+        autoHide:false //是否自动隐藏已经展开的容器
+    });
+</script>
+<!-- {include file="common/footer"/} -->
+</body>
+</html>

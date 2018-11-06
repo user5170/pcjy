@@ -1,0 +1,88 @@
+{include file="common/head"/}
+<div class="admin-main layui-anim layui-anim-upbit" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>匹配信息</legend>
+    </fieldset>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">仓库编号</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.w_id}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员编号</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.u_id}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出租面积</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.area}㎡" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出租价格</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.price}元/天/㎡" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">租凭方</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.tenant}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 125px">出租开始时间</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.b_time}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 125px">出租开始时间</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.e_time}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.remark}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同图片</label>
+            <input type="hidden" name="pact" id="pic">
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="adPic"  src="/public{$info.pdfs}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">奖励金</label>
+            <div class="layui-input-4">
+                <input type="text" disabled value="{$info.money}" class="layui-input">
+            </div>
+        </div>
+        <!-- <div class="layui-form-item">
+            <label class="layui-form-label">奖金状态</label>
+            <div class="layui-input-3">
+                <input type="radio" name="status" class="layui-input" lay-filter="menustatus" checked value="2" title="暂不发放">
+                <input type="radio" name="status" class="layui-input" lay-filter="menustatus"  value="1" title="发放">
+            </div>
+        </div> -->
+        <!-- <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" lay-submit="" lay-filter="submit">{:lang('submit')}</button>
+                <a href="{:url('index')}" class="layui-btn layui-btn-primary">{:lang('back')}</a>
+            </div>
+        </div> -->
+    </form>
+</div>
+{include file="common/foot"/}

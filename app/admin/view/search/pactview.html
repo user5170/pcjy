@@ -1,0 +1,26 @@
+{include file="common/head"/}
+<style type="text/css">
+    .layui-upload-img{
+        width: auto;    
+    }
+</style>
+<div class="admin-main layui-anim layui-anim-upbit" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>合同</legend>
+    </fieldset>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同图片</label>
+            <input type="hidden" name="pact" id="pic">
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <img id="adPic"  src="/public{$info.pdfs}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{include file="common/foot"/}

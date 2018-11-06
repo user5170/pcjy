@@ -1,0 +1,159 @@
+{include file="common/head"/}
+<div class="admin-main layui-anim layui-anim-upbit" ng-app="hd" ng-controller="ctrl">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>匹配仓库</legend>
+    </fieldset>
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">仓库编号</label>
+            <div class="layui-input-4">
+                <input type="text" name="w_id" lay-verify="required" placeholder="请输入仓库的编号" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员编号</label>
+            <div class="layui-input-4">
+                <input type="text" name="u_id" lay-verify="required" placeholder="请输入会员的编号" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出租面积</label>
+            <div class="layui-input-4">
+                <input type="text" name="area" lay-verify="required" placeholder="㎡" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出租价格</label>
+            <div class="layui-input-4">
+                <input type="text" name="price" lay-verify="required" placeholder="元/天/㎡" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">租凭方</label>
+            <div class="layui-input-4">
+                <input type="text" name="tenant" lay-verify="required" placeholder="请输入租凭方" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"  style="width: 125px">出租开始时间</label>
+            <div class="layui-input-3">
+                <input type="text" name="b_time" placeholder="出租开始时间" id="test1"  class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"  style="width: 125px">出租结束时间</label>
+            <div class="layui-input-3">
+                <input type="text" name="e_time" placeholder="出租结束时间" id="test2"  class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-4">
+                <input type="text" name="remark" lay-verify="required" placeholder="请输入备注" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同图片</label>
+            <input type="hidden" name="pact" id="pic">
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-primary" id="adBtn"><i class="icon icon-upload3"></i>点击上传</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="adPic"  src="">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">奖励金</label>
+            <div class="layui-input-4">
+                <input type="text" name="money" lay-verify="required" placeholder="请输入奖励金" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">奖金状态</label>
+            <div class="layui-input-3">
+                <input type="radio" name="status" class="layui-input" lay-filter="menustatus" checked value="2" title="暂不发放">
+                <input type="radio" name="status" class="layui-input" lay-filter="menustatus"  value="1" title="发放">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" lay-submit="" lay-filter="submit">{:lang('submit')}</button>
+                <a href="{:url('index')}" class="layui-btn layui-btn-primary">{:lang('back')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+{include file="common/foot"/}
+<script src="__STATIC__/common/js/angular.min.js"></script>
+<script>
+    var m = angular.module('hd',[]);
+    m.controller('ctrl',['$scope',function($scope) {
+        layui.use('laydate', function(){
+          var laydate = layui.laydate;
+          
+          //执行一个laydate实例
+          laydate.render({
+            elem: '#test1', //指定元素
+          });
+          laydate.render({
+            elem: '#test2', //指定元素
+          });
+        });
+        layui.use(['form', 'layer','layedit','upload'], function () {
+            var form = layui.form, $ = layui.jquery,layedit = layui.layedit, upload = layui.upload;;
+            layedit.set({
+                uploadImage: {
+                    url: "{:url('UpFiles/editUpload')}",
+                    type: 'post'
+                }
+            });
+            var layeCon = layedit.build('content');
+
+            form.on('submit(submit)', function (data) {
+                // 提交到方法 默认为本身
+                var loading = layer.load(1, {shade: [0.1, '#fff']});
+                data.field.content = layedit.getContent(layeCon);
+                $.post("", data.field, function (res) {
+                    layer.close(loading);
+                    if (res.code > 0) {
+                        layer.msg(res.msg, {time: 1800, icon: 1}, function () {
+                            location.href = res.url;
+                        });
+                    } else {
+                        layer.msg(res.msg, {time: 1800, icon: 2});
+                    }
+                });
+            })
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#adBtn'
+                ,url: '{:url("UpFiles/upload")}'
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        $('#adPic').attr('src', result); //图片链接（base64）
+                    });
+                },
+                done: function(res){
+                    if(res.code>0){
+                        $('#pic').val(res.url);
+                    }else{
+                        //如果上传失败
+                        return layer.msg('上传失败');
+                    }
+                }
+                ,error: function(){
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        uploadInst.upload();
+                    });
+                }
+            });
+        });
+    }]);
+</script>
